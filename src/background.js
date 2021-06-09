@@ -18,9 +18,7 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 540,
-    resizable: false, // 禁止用户调整窗口大小
     webPreferences: {
-
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
