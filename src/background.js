@@ -1,67 +1,49 @@
 'use strict'
 
-import {
-  app,
-  protocol,
-  BrowserWindow
-} from 'electron'
-import {
-  createProtocol
-} from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, {
-  VUEJS_DEVTOOLS
-} from 'electron-devtools-installer'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import Store from 'electron-store'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let win, forceQuit
+Store.initRenderer()
 
 // Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([{
-  scheme: 'app',
-  privileges: {
-    secure: true,
-    standard: true
-  }
-}])
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'app', privileges: { secure: true, standard: true } }
+])
 
-function createWindow() {
+async function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     width: 800,
-    height: 600,
-    autoHideMenuBar: true,
+    height: 540,
+    resizable: false, // 禁止用户调整窗口大小
     webPreferences: {
+
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      nodeIntegrationInWorker: true,
-      webSecurity: false,
-      
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      // 取消跨域限制
+      webSecurity: false
     }
   })
 
+  if (!isDevelopment) {
+    // 不是开发环境就隐藏菜单栏
+    Menu.setApplicationMenu(null)
+  }
+
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
-  win.on('close', e => {
-    if (!forceQuit && process.platform === 'darwin') {
-      e.preventDefault();
-      win.hide()
-    } else {
-      app.exit()
-    }
-  })
-  win.on('closed', () => {
-    win = null
-  })
 }
 
 // Quit when all windows are closed.
@@ -73,18 +55,10 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('before-quit', () => {
-  forceQuit = true
-})
-
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (win === null) {
-    createWindow()
-  } else if (win && !win.isVisible()) {
-    win.show()
-  }
+  if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
 
 // This method will be called when Electron has finished
