@@ -1,0 +1,48 @@
+# name字段是 workflow 的名称。如果省略该字段，默认为当前 workflow 的文件名
+name: Electron Builder Action
+
+# on字段指定触发 workflow 的条件，通常是某些事件。这里设置打 tag 标签且标签名称为v.*.*.*时触发
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    # 在什么平台上运行，取值为下面 strategy 设置的 matrix.os 的数组参数，在mac 和 windows 下运行（即打包 mac 和 windows 平台）
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    steps:
+      - name: 检出代码到本地
+        uses: actions/checkout@v2
+
+      - name: 安装 Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      # 加参数 --publish never 是告诉构建不发布，不然默认是发布到 github，发布需要添加 GITHUB_TOKEN 环境变量，这里我们不需要他发布，我们自己写任务发布
+      - name: 构建
+        run: |
+          yarn
+          yarn electron:build --publish never
+      
+      # win 系统免安装的包 指定 shell 为 pwsh，github-Actions 给所有平台都提供了 PowerShell，而 PowerShell 内置了压缩命令 Compress-Archive 可查看https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
+      - name: 压缩 win 系统可直接运行的包
+        if: ${{ runner.os == 'Windows' }}
+        shell: pwsh
+        run: Compress-Archive -Path ./dist_electron/win-unpacked ./dist_electron/win-64-unpacked.zip 
+
+      - name: 发布到 github 的 releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist_electron/*.dmg
+            dist_electron/*.exe
+            dist_electron/win-64-unpacked.zip
