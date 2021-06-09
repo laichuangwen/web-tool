@@ -3998,10 +3998,10 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.750.tgz?cache=0&sync_timestamp=1623189842602&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.750.tgz#7e5ef6f478316b0bd656af5942fe502610e97eaf"
   integrity sha1-fl729HgxawvWVq9ZQv5QJhDpfq8=
 
-electron@12.0.0:
-  version "12.0.0"
-  resolved "https://registry.nlark.com/electron/download/electron-12.0.0.tgz#b3b1d88cc64622e59c637521da5a6b6ab4df4eb5"
-  integrity sha1-s7HYjMZGIuWcY3Uh2lprarTfTrU=
+electron@13.1.0:
+  version "13.1.0"
+  resolved "https://registry.nlark.com/electron/download/electron-13.1.0.tgz#6d960bcc0dfb8663dd511b59a697e2fad35b2b6a"
+  integrity sha1-bZYLzA37hmPdURtZppfi+tNbK2o=
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"

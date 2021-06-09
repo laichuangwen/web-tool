@@ -51,7 +51,7 @@
     </el-dialog>
 </template>
 <script>
-import { remote } from 'electron'
+const  {dialog}  = require('electron').remote
 const simpleGit = require('simple-git')
 export default {
     data() {
@@ -99,7 +99,7 @@ export default {
         },
         selectPath() {
             // 获取git根目录
-            remote.dialog.showOpenDialog({
+            dialog.showOpenDialog({
                 title: '选择文件夹',
                 properties: ['openDirectory']
             }).then(result => {
