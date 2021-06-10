@@ -1,5 +1,7 @@
 <template>
-    <router-view></router-view>
+    <keep-alive :include="['interfaceListY']">
+        <router-view></router-view>
+    </keep-alive>
 </template>
 
 <script>
