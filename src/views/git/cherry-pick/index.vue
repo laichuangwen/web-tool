@@ -119,6 +119,7 @@ import path from 'path'
 import os from 'os'
 let git
 export default {
+    name:'cherryPickList',
     components: {
         Page
     },

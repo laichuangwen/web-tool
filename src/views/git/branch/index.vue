@@ -72,7 +72,7 @@ import os from 'os'
 import Git from '../git'
 let git;
 export default {
-    name: 'branch',
+    name: 'branchList',
     components: {
         Page,
         virtualList,

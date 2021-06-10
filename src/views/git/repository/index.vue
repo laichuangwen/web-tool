@@ -61,6 +61,7 @@
 <script>
 import DepotModal from './DepotModal.vue';
 export default {
+    name:'repositoryList',
     components: {
         DepotModal
     },

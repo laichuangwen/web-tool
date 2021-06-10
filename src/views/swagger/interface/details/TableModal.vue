@@ -55,7 +55,7 @@ export default {
         submit() {
             // 原型表表头
             let UILabelList = Array.from(new Set(this.form.str.split('\n'))).filter(item => item);
-            const list = UILabelList.map(item => {
+            let list = UILabelList.map(item => {
                 const row = this.list.find(ls => ls.label === item);
                 if (row) {
                     return {
@@ -69,7 +69,8 @@ export default {
                 }
             })
             const tableHeader = list.map(item => `{\nlabel:"${item.label}",\nproperty:"${item.property}"\n}`).join(',\n')
-            this.$ctx.util.copy(`[\n${tableHeader}]\n`)
+            const handler = `,\n{\nlabel: '操作',\nslotName: 'handler',\nwidth: 120\n}` // 添加操作
+            this.$ctx.util.copy(`[\n${tableHeader.concat(handler)}]\n`)
             this.$message.success('成功复制到粘贴板');
             this.isShow = false;
         },
@@ -78,8 +79,8 @@ export default {
 </script>
 <style lang="scss" module="s">
 .tip {
-  margin-bottom: 24px;
-  text-align: center;
-  color: #0bb27a;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #0bb27a;
 }
 </style>

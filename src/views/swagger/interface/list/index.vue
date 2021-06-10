@@ -60,6 +60,7 @@
 <script>
 import Page from '../../../Page.vue';
 export default {
+    name:'interfaceList',
     components: {
         Page
     },

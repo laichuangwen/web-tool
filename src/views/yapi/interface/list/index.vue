@@ -42,6 +42,7 @@
 <script>
 import Page from '../../../Page';
 export default {
+    name:'interfaceListY',
     components: {
         Page
     },

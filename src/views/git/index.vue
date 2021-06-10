@@ -15,6 +15,6 @@ export default {
 
 <style lang="scss" module="s">
 .view {
-  padding: 16px 32px 32px;
+    padding: 16px 32px 32px;
 }
 </style>

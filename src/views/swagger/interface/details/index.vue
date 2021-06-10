@@ -258,6 +258,7 @@ export default {
             const { schema: {
                 originalRef
             } } = data
+            if (!originalRef) return 'object'
             return this.definitions[originalRef].type || 'object'
         },
         reqBody() {
@@ -268,9 +269,11 @@ export default {
             if (!this.pathInfo.parameters.length) return [];
             const [data] = this.pathInfo.parameters
             if (data.in !== 'body') return [];
+            if (!data.schema) return []
             const { schema: {
                 originalRef
             } } = data
+            if (!originalRef) return []
             let tableList = [];
             this.toTree(this.definitions[originalRef], tableList)
             console.log(tableList);
@@ -281,6 +284,8 @@ export default {
             if (!this.pathInfo) return [];
             if (!this.pathInfo.responses) return [];
             const res200 = this.pathInfo.responses['200']
+            if(!res200) return []
+            if(!res200.schema) return []
             const { schema: {
                 originalRef
             } } = res200
