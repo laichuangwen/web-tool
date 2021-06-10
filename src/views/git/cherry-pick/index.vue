@@ -1,6 +1,6 @@
 <template>
     <page>
-        <div :class="s.pickList">
+        <div :class="s.pickList" v-loading="branchLoading">
             <div :class="s.top">
                 <div :class="s.group">
                     <el-radio-group v-model="type"
@@ -27,7 +27,7 @@
                         </el-button>
                     </el-tooltip>
                 </div>
-                <div v-loading="branchLoading"
+                <div
                     :class="s.condition">
                     <section>
                         <label style="margin-right: 12px;">源分支&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -197,12 +197,12 @@ export default {
         async init() {
             if (!this.$route.query.path) return
             git = Git(this, this.$route.query.path)
+            this.branchLoading = true
             // 拉取最新
             await git.fetch([
                 'origin'
             ])
             // 获取分支
-            this.branchLoading = true
             this.branch = await git.branch()
             this.branch.local = this.branch.all.filter(item => !item.startsWith('remotes'))
             this.branch.remotes = this.branch.all.filter(item => item.startsWith('remotes'))

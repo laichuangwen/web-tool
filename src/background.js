@@ -1,29 +1,43 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu } from 'electron'
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  Menu
+} from 'electron'
+require('@electron/remote/main').initialize()
+import {
+  createProtocol
+} from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, {
+  VUEJS_DEVTOOLS
+} from 'electron-devtools-installer'
 import Store from 'electron-store'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 Store.initRenderer()
 
 // Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
-])
+protocol.registerSchemesAsPrivileged([{
+  scheme: 'app',
+  privileges: {
+    secure: true,
+    standard: true
+  }
+}])
 
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
-    height: 540,
+    height: 600,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      enableRemoteModule: true,//开启remote模块
+      enableRemoteModule: true, //开启remote模块
       // 取消跨域限制
       webSecurity: false
     }
@@ -59,6 +73,7 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

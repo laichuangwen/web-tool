@@ -51,7 +51,7 @@
     </el-dialog>
 </template>
 <script>
-const  {dialog}  = require('electron').remote
+const  {dialog}  = require('@electron/remote')
 const simpleGit = require('simple-git')
 export default {
     data() {

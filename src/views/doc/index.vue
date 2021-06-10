@@ -22,7 +22,6 @@ export default {
         iframe.height = '100%'
         iframe.className = this.s.iframe
         iframe.onload = () => {
-            console.log('dddd');
             this.loading = false
         };
         this.$refs.content.appendChild(iframe)

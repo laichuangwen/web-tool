@@ -24,11 +24,13 @@
     "mirror": "https://npm.taobao.org/mirrors/electron/"
   },
   "dependencies": {
+    "@electron/remote": "^1.1.0",
     "ansi_up": "4.0.4",
     "axios": "0.19.0",
     "bignumber.js": "9.0.0",
     "core-js": "3.6.5",
     "electron-store": "8.0.0",
+    "element-ui": "2.13.2",
     "fix-path": "2.1.0",
     "fs-extra": "8.1.0",
     "lodash": "4.17.19",
@@ -38,9 +40,8 @@
     "unzipper": "0.10.5",
     "vue": "2.6.11",
     "vue-router": "3.2.0",
-    "vuex": "3.4.0",
-    "element-ui": "2.13.2",
-    "vue-virtual-scroll-list": "2.3.0"
+    "vue-virtual-scroll-list": "2.3.0",
+    "vuex": "3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.0",
