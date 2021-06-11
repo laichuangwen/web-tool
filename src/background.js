@@ -14,7 +14,6 @@ import installExtension, {
   VUEJS_DEVTOOLS
 } from 'electron-devtools-installer'
 import Store from 'electron-store'
-require('update-electron-app')()
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 Store.initRenderer()

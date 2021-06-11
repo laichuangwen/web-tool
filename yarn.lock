@@ -1114,11 +1114,6 @@
   resolved "https://registry.nlark.com/@types/q/download/@types/q-1.5.4.tgz?cache=0&sync_timestamp=1621242400776&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=
 
-"@types/semver@^7.3.5":
-  version "7.3.6"
-  resolved "https://registry.nlark.com/@types/semver/download/@types/semver-7.3.6.tgz?cache=0&sync_timestamp=1620925446959&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fsemver%2Fdownload%2F%40types%2Fsemver-7.3.6.tgz#e9831776f4512a7ba6da53e71c26e5fb67882d63"
-  integrity sha1-6YMXdvRRKnum2lPnHCbl+2eILWM=
-
 "@types/verror@^1.10.3":
   version "1.10.4"
   resolved "https://registry.nlark.com/@types/verror/download/@types/verror-1.10.4.tgz#805c0612b3a0c124cf99f517364142946b74ba3b"
@@ -2407,14 +2402,6 @@ builder-util-runtime@8.7.3:
   version "8.7.3"
   resolved "https://registry.nlark.com/builder-util-runtime/download/builder-util-runtime-8.7.3.tgz#0aaafa52d25295c939496f62231ca9ff06c30e40"
   integrity sha1-Cqr6UtJSlck5SW9iIxyp/wbDDkA=
-  dependencies:
-    debug "^4.3.2"
-    sax "^1.2.4"
-
-builder-util-runtime@8.7.5:
-  version "8.7.5"
-  resolved "https://registry.nlark.com/builder-util-runtime/download/builder-util-runtime-8.7.5.tgz#fbe59e274818885e0d2e358d5b7017c34ae6b0f5"
-  integrity sha1-++WeJ0gYiF4NLjWNW3AXw0rmsPU=
   dependencies:
     debug "^4.3.2"
     sax "^1.2.4"
@@ -3989,16 +3976,6 @@ electron-devtools-installer@3.1.1:
     semver "^7.2.1"
     unzip-crx-3 "^0.2.0"
 
-electron-is-dev@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npm.taobao.org/electron-is-dev/download/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
-  integrity sha1-FOb9pcaOnk7L7/nM8DfL18BcWv4=
-
-electron-log@^4.3.5:
-  version "4.3.5"
-  resolved "https://registry.nlark.com/electron-log/download/electron-log-4.3.5.tgz#2aad5f93842b9b5214a1b4a10e47b5ac5c9ec104"
-  integrity sha1-Kq1fk4Qrm1IUobShDke1rFyewQQ=
-
 electron-publish@22.10.5:
   version "22.10.5"
   resolved "https://registry.nlark.com/electron-publish/download/electron-publish-22.10.5.tgz#9cbe46266b6c79d8c6e99840755682e2262d3543"
@@ -4025,20 +4002,6 @@ electron-to-chromium@^1.3.723:
   version "1.3.750"
   resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.750.tgz?cache=0&sync_timestamp=1623189842602&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.750.tgz#7e5ef6f478316b0bd656af5942fe502610e97eaf"
   integrity sha1-fl729HgxawvWVq9ZQv5QJhDpfq8=
-
-electron-updater@^4.3.9:
-  version "4.3.9"
-  resolved "https://registry.nlark.com/electron-updater/download/electron-updater-4.3.9.tgz#247c660bafad7c07935e1b81acd3e9a5fd733154"
-  integrity sha1-JHxmC6+tfAeTXhuBrNPppf1zMVQ=
-  dependencies:
-    "@types/semver" "^7.3.5"
-    builder-util-runtime "8.7.5"
-    fs-extra "^10.0.0"
-    js-yaml "^4.1.0"
-    lazy-val "^1.0.4"
-    lodash.escaperegexp "^4.1.2"
-    lodash.isequal "^4.5.0"
-    semver "^7.3.5"
 
 electron@13.1.0:
   version "13.1.0"
@@ -5007,13 +4970,6 @@ getpass@^0.1.1:
   integrity sha1-Xv+OPmhNVprkyysSgmBOi6YhSfo=
   dependencies:
     assert-plus "^1.0.0"
-
-github-url-to-object@^4.0.4:
-  version "4.0.6"
-  resolved "https://registry.nlark.com/github-url-to-object/download/github-url-to-object-4.0.6.tgz#5ea8701dc8c336b8d582dc3fa5bf964165c3b365"
-  integrity sha1-XqhwHcjDNrjVgtw/pb+WQWXDs2U=
-  dependencies:
-    is-url "^1.1.0"
 
 glob-parent@^3.1.0:
   version "3.1.0"
@@ -6046,11 +6002,6 @@ is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   resolved "https://registry.npm.taobao.org/is-typedarray/download/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
-is-url@^1.1.0, is-url@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.npm.taobao.org/is-url/download/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
-  integrity sha1-BKTfRtKMTP89c9Af8Gq+sxihqlI=
-
 is-utf8@^0.2.0:
   version "0.2.1"
   resolved "https://registry.npm.taobao.org/is-utf8/download/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
@@ -6176,7 +6127,7 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-js-yaml@^4.0.0, js-yaml@^4.1.0:
+js-yaml@^4.0.0:
   version "4.1.0"
   resolved "https://registry.npm.taobao.org/js-yaml/download/js-yaml-4.1.0.tgz?cache=0&sync_timestamp=1618435004368&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-yaml%2Fdownload%2Fjs-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
   integrity sha1-wftl+PUBeQHN0slRhkuhhFihBgI=
@@ -6465,16 +6416,6 @@ lodash.defaultsdeep@^4.6.1:
   version "4.6.1"
   resolved "https://registry.nlark.com/lodash.defaultsdeep/download/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
   integrity sha1-US6b1yHSctlOPTpjZT+hdRZ0HKY=
-
-lodash.escaperegexp@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.npm.taobao.org/lodash.escaperegexp/download/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
-  integrity sha1-ZHYsSGGAglGKw99Mz11YhtriA0c=
-
-lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npm.taobao.org/lodash.isequal/download/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.kebabcase@^4.1.1:
   version "4.1.1"
@@ -10069,16 +10010,6 @@ upath@^1.1.1:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/upath/download/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha1-j2bbzVWog6za5ECK+LA1pQRMGJQ=
-
-update-electron-app@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npm.taobao.org/update-electron-app/download/update-electron-app-2.0.1.tgz#229dbeb4534f51ec949e6a46ae1ac32f68a17eed"
-  integrity sha1-Ip2+tFNPUeyUnmpGrhrDL2ihfu0=
-  dependencies:
-    electron-is-dev "^0.3.0"
-    github-url-to-object "^4.0.4"
-    is-url "^1.2.4"
-    ms "^2.1.1"
 
 update-notifier@^5.1.0:
   version "5.1.0"
