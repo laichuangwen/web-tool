@@ -40,6 +40,7 @@ export default {
 }
 
 .leftMenu {
+  -webkit-app-region: drag;
   position: relative;
   width: 64px;
   padding: 36px 0;
@@ -83,6 +84,7 @@ export default {
   }
 }
 .page {
+  -webkit-app-region: no-drag;
   flex: 1;
   overflow: auto;
 

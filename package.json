@@ -29,7 +29,9 @@
     "axios": "0.19.0",
     "bignumber.js": "9.0.0",
     "core-js": "3.6.5",
+    "electron-log": "^4.3.5",
     "electron-store": "8.0.0",
+    "electron-updater": "^4.3.9",
     "element-ui": "2.13.2",
     "fix-path": "2.1.0",
     "fs-extra": "8.1.0",
@@ -38,6 +40,7 @@
     "simple-git": "2.39.0",
     "tree-kill": "1.2.2",
     "unzipper": "0.10.5",
+    "update-electron-app": "^2.0.1",
     "vue": "2.6.11",
     "vue-router": "3.2.0",
     "vue-virtual-scroll-list": "2.3.0",
@@ -70,6 +73,10 @@
       "parser": "babel-eslint"
     },
     "rules": {}
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laichuangwen/web-tool.git"
   },
   "browserslist": [
     "> 1%",

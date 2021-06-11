@@ -117,6 +117,7 @@ export default {
             this.$refs.commitModal.open(commit)
         })
         this.$on('revokeCommit', (commit) => {
+            console.log(commit);
             console.log('revokeCommit', commit);
             this.revokeCommit(commit)
         })

@@ -1,3 +1,11 @@
 appId: "com.ewenlai.web-tool"
 productName: "web-tool"
-copyright: "Copyright © 2021 laichuangwen"
+copyright: "Copyright © 2021 ewenlai"
+publish: 
+  provider: 'generic'
+  url: "https://github.com/laichuangwen/web-tool/releases"
+mac: 
+  hardenedRuntime: true
+  gatekeeperAssess: false
+dmg:
+  sign: false

@@ -4,6 +4,9 @@
             :list="list"
             @item-confirm="itemConfirm"
             @editEvent="editEvent">
+            <template #version>
+                <p>{{version}}</p>
+            </template>
             <template #debug>
                 <i @click="debugOpen"
                     :class="['ewen-iconyiwen', s.icon]"></i>
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import { remote } from 'electron'
+const remote = require('@electron/remote')
 import SettingList from './SettingList.vue';
 export default {
     components: {
@@ -26,11 +29,18 @@ export default {
         return {
             visible: false,
             docUrl: '',
+            version: '',
         };
     },
     computed: {
         list() {
             return [
+                {
+                    id: 3,
+                    label: '当前版本',
+                    type: 'custom',
+                    slotItemName: 'version',
+                },
                 {
                     id: 2,
                     label: '文档地址',
@@ -52,7 +62,8 @@ export default {
     methods: {
         init() {
             this.docUrl = this.$ctx.eStore.get('docUrl') || '';
-            this.$ctx.store.commit('doc/setUrl',this.docUrl)
+            this.version = `v${remote.app.getVersion()}`
+            this.$ctx.store.commit('doc/setUrl', this.docUrl)
         },
         reset() {
             this.visible = false
@@ -76,7 +87,7 @@ export default {
                 default:
                     break;
             }
-        },
+        }
     }
 };
 </script>

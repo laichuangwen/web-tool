@@ -14,6 +14,7 @@ import installExtension, {
   VUEJS_DEVTOOLS
 } from 'electron-devtools-installer'
 import Store from 'electron-store'
+require('update-electron-app')()
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 Store.initRenderer()
@@ -32,6 +33,7 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    titleBarStyle: 'hidden',
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -57,6 +59,7 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+  
 }
 
 // Quit when all windows are closed.

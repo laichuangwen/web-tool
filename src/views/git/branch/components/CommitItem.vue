@@ -78,12 +78,12 @@ export default {
         changeCommit() {
             // 注意父组件name
             // todo例子 https://github.com/tangbc/vue-virtual-scroll-list/blob/master/example/src/views/keep-state/Main.vue
-            this.dispatch('branch', 'changeCommit', this.source)
+            this.dispatch('branchList', 'changeCommit', this.source)
         },
         revokeCommit() {
             // 注意父组件name
             // todo例子 https://github.com/tangbc/vue-virtual-scroll-list/blob/master/example/src/views/keep-state/Main.vue
-            this.dispatch('branch', 'revokeCommit', this.source)
+            this.dispatch('branchList', 'revokeCommit', this.source)
         },
         copy(val) {
             copy(val)
