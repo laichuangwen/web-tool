@@ -11,6 +11,9 @@
                         <el-radio-button label="remote">远程</el-radio-button>
                         <el-radio-button label="local">本地</el-radio-button>
                     </el-radio-group>
+                    <el-checkbox  style="margin-right: 12px;" v-model="isCode">
+                        编号搜索
+                    </el-checkbox>
                     <el-tooltip content="复制选中的commit的hash"
                         placement="left">
                         <el-button type="primary"
@@ -22,6 +25,7 @@
                     <el-tooltip content="选中的commit执行cherry-pick并push到远程"
                         placement="left">
                         <el-button type="primary"
+                            style="margin-right: 12px;"
                             :disabled="!selections.length"
                             :loading="submitLoading"
                             @click="submit">
@@ -56,7 +60,7 @@
                                 :value="item.value" />
                         </el-select>
                     </section>
-                    <section>
+                    <section v-if="isCode">
                         <label style="margin-right: 12px;">编号&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <el-select v-model="selList"
                             multiple
@@ -69,6 +73,14 @@
                                 :value="item">
                             </el-option>
                         </el-select>
+                    </section>
+                    <section v-else>
+                        <label style="margin-right: 12px;">关键字&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <el-input style="width:200px;margin-right: 12px;"
+                            v-model="Keyword"
+                            clearable
+                            placeholder="关键字">
+                        </el-input>
                     </section>
                     <el-button :disabled="!(sourceBranch&&targetBranch)"
                         @click="getList">
@@ -103,10 +115,6 @@
                     prop="date"
                     width="160">
                 </el-table-column>
-                <!-- <el-table-column prop="hash"
-                label="hash"
-                min-width="140">
-            </el-table-column> -->
                 <el-table-column prop="message"
                     min-width="200"
                     show-overflow-tooltip
@@ -145,6 +153,7 @@ export default {
             branchLoading: false,
             loading: false,
             submitLoading: false,
+            isCode: true,
             diffStep: '',
             list: [],
             selections: [],
@@ -267,14 +276,18 @@ export default {
             this.loading = true
             const commits = await this.getDiffCommits();
             console.log('不同commits', commits);
-            let ls = new Set()
-            commits.forEach(item => {
-                ls.add(...[...item.tasks, ...item.bugs])
-            })
-            this.selOptions = Array.from(ls)
-            console.log(this.selList);
-            const sels = this.selList.length ? this.selList : this.selOptions
-            this.list = commits.filter(item => sels.some(list => item.message.includes(list)))
+            if (this.isCode) { //编码搜索
+                let ls = new Set()
+                commits.forEach(item => {
+                    ls.add(...[...item.tasks, ...item.bugs])
+                })
+                this.selOptions = Array.from(ls)
+                console.log(this.selList);
+                const sels = this.selList.length ? this.selList : this.selOptions
+                this.list = commits.filter(item => sels.some(list => item.message.includes(list)))
+            } else { //关键字搜索
+                this.list = commits.filter(item => item.message.includes(this.Keyword) || item.author_name.includes(this.Keyword))
+            }
             this.loading = false
         },
         // 获取两个分支差异
