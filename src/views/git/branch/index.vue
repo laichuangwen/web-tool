@@ -32,7 +32,7 @@
                         placement="bottom">
                         <el-button style="margin-left: 12px;"
                             @click="$refs.deleteBackupModal.open(branch.current)">
-                            删除本地分支
+                            删除分支
                         </el-button>
                     </el-tooltip>
                 </div>

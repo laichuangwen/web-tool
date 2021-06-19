@@ -1,6 +1,7 @@
 <template>
     <page>
-        <div :class="s.pickList" v-loading="branchLoading">
+        <div :class="s.pickList"
+            v-loading="branchLoading">
             <div :class="s.top">
                 <div :class="s.group">
                     <el-radio-group v-model="type"
@@ -22,13 +23,13 @@
                         placement="left">
                         <el-button type="primary"
                             :disabled="!selections.length"
+                            :loading="submitLoading"
                             @click="submit">
                             cherry-pick
                         </el-button>
                     </el-tooltip>
                 </div>
-                <div
-                    :class="s.condition">
+                <div :class="s.condition">
                     <section>
                         <label style="margin-right: 12px;">源分支&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <el-select v-model="sourceBranch"
@@ -56,12 +57,18 @@
                         </el-select>
                     </section>
                     <section>
-                        <label style="margin-right: 12px;">关键字&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <el-input style="width:200px;margin-right: 12px;"
-                            v-model="Keyword"
-                            clearable
-                            placeholder="关键字">
-                        </el-input>
+                        <label style="margin-right: 12px;">编号&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <el-select v-model="selList"
+                            multiple
+                            collapse-tags
+                            style="width:150px;margin-right: 12px;"
+                            placeholder="请选择编号">
+                            <el-option v-for="(item,index) in selOptions"
+                                :key="index"
+                                :label="item"
+                                :value="item">
+                            </el-option>
+                        </el-select>
                     </section>
                     <el-button :disabled="!(sourceBranch&&targetBranch)"
                         @click="getList">
@@ -119,7 +126,7 @@ import path from 'path'
 import os from 'os'
 let git
 export default {
-    name:'cherryPickList',
+    name: 'cherryPickList',
     components: {
         Page
     },
@@ -137,10 +144,13 @@ export default {
             sourceBranch: '',
             branchLoading: false,
             loading: false,
+            submitLoading: false,
             diffStep: '',
             list: [],
             selections: [],
+            selOptions: [],
             Keyword: '',
+            selList: [],
             modal: {
                 logs: false,
                 submit: false
@@ -257,7 +267,14 @@ export default {
             this.loading = true
             const commits = await this.getDiffCommits();
             console.log('不同commits', commits);
-            this.list = commits.filter(item => item.message.includes(this.Keyword) || item.author_name.includes(this.Keyword))
+            let ls = new Set()
+            commits.forEach(item => {
+                ls.add(...[...item.tasks, ...item.bugs])
+            })
+            this.selOptions = Array.from(ls)
+            console.log(this.selList);
+            const sels = this.selList.length ? this.selList : this.selOptions
+            this.list = commits.filter(item => sels.some(list => item.message.includes(list)))
             this.loading = false
         },
         // 获取两个分支差异
@@ -285,7 +302,7 @@ export default {
                 `${this.sourceBranch}...${this.targetBranch}`
             ])
             const { all: commits } = res;
-            console.log('commits',commits);
+            console.log('commits', commits);
             // 取出时间最小值
             const date = Math.min(...commits.map(item => new Date(item.date).getTime()));
             console.log(date);
@@ -294,19 +311,23 @@ export default {
                 `--since=${new Date(date)}`,
                 `${this.targetBranch}`
             ]);
-            console.log('targetCommit',targetCommit);
+            console.log('targetCommit', targetCommit);
             const filterCommit = commits.filter(item => !targetCommit.all.map(list => `${list.message}-${list.date}`).includes(`${item.message}-${item.date}`))
             const gensortCommit = filterCommit.map((item, index) => ({ ...item, index: index }))
             const parseCommits = gensortCommit.map(item => {
                 const { message } = item
+                const tasks = message.match(/T\d+/g) || [];
+                const bugs = message.match(/B\d+/g) || [];
                 return {
                     ...item,
+                    tasks,
+                    bugs,
                     type: (/^(doc)/gui).test(message) ? 'doc' : 'task', // 是文档commit
                 }
             })
             return parseCommits
         },
-        async submit(automator) {
+        async submit() {
             const checkCommitsList = this.selections;
             if (!checkCommitsList.length) {
                 this.$message.warning('请选择commit')
@@ -361,13 +382,7 @@ export default {
                             })
                         })
                         this.modal.logs = false
-
-                        if (automator) {
-                            await git.push()
-                        } else {
-                            // 本地pick就返回上一页
-                            this.$router.back();
-                        }
+                        await git.push()
                         this.$message.success('操作成功')
                     } catch (e) {
                         console.warn(e)
@@ -386,13 +401,17 @@ export default {
             // 合并
             this.$confirm('即将执行cherry-pick、push连贯操作，Are you ready？')
                 .then(async () => {
+                    this.submitLoading = true;
                     await handler()
                     // 切换回当前
                     console.log('切换回当前分支', curBranch);
                     await git.checkout(curBranch)
                     // 获取列表
                     this.getList()
-                })
+                    this.submitLoading = false;
+                }).catch(() => {
+                    this.submitLoading = false;
+                });
         },
         copy() {
             const commits = this.selections;

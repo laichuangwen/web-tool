@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="删除本地分支"
+    <el-dialog title="删除分支"
         :visible.sync="isShow"
         width="500px">
         <template>
@@ -23,13 +23,22 @@
                     label="分支名称" />
             </el-table>
         </template>
-        <span slot="footer">
-            <el-button @click="isShow = false">取 消</el-button>
-            <el-button type="primary"
-                :disabled="!multipleSelection.length"
-                :loading="loading.submit"
-                @click="submit">确 定</el-button>
-        </span>
+        <div slot="footer"
+            :class="s.footer">
+            <el-checkbox v-model="isDel">
+                是否删除远程
+            </el-checkbox>
+            <div :class="s.operator">
+                <el-button @click="cancel">
+                    取消
+                </el-button>
+                <el-button type="primary"
+                    :loading="loading.submit"
+                    @click="submit">
+                    删除
+                </el-button>
+            </div>
+        </div>
     </el-dialog>
 </template>
 <script>
@@ -39,6 +48,7 @@ export default {
     data() {
         return {
             isShow: false,
+            isDel: true,
             list: [],
             branch: null,
             loading: {
@@ -95,6 +105,15 @@ export default {
                 this.loading.submit = true
                 for (const branch of this.multipleSelection) {
                     await git.branch(['-D', branch.name])
+                    // 删除远程分支
+                    if (this.isDel) {
+                        await git.raw([
+                            'push',
+                            'origin',
+                            '--delete',
+                            `${branch.name}`
+                        ])
+                    }
                 }
                 this.$message.success('操作成功')
                 this.loading.submit = false
